@@ -1,0 +1,7 @@
+# Deprecated
+{ pkgs, config, lib, ... }:
+{
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "vscode" "vscode-fhs" "qq" "jetbrains-toolbox"
+  ];
+}
