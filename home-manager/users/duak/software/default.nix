@@ -2,12 +2,12 @@
 {
   imports = [
     ./vscode.nix
-    ./qq.nix
     ./ghostty.nix
     ./git.nix
+    ./virt-manager.nix
   ];
   home.packages = with pkgs; [
-    asdf-vm jetbrains-toolbox
+    asdf-vm jetbrains-toolbox google-chrome
   ];
 
 }

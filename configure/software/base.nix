@@ -7,7 +7,7 @@
     with pkgs; [ 
     vim git jq fastfetch gnupg gawk
     iperf3 tree age sops gnumake
-    coreutils
+    coreutils curl gnutar wget 
   ];
 }
 
