@@ -2,11 +2,9 @@
 {
   imports = [
     ./fonts
+    ./etc
 
-    ./software/base.nix
-    ./software/bash.nix
-    ./software/direnv.nix
-    ./software/zsh.nix
+    ./software
   ];
   
   users.users."duak" = import ./users/duak.nix { inherit pkgs config lib inputs; };
