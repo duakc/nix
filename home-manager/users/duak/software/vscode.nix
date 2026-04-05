@@ -1,25 +1,36 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, lib, hostPlatform, inputs, ... }:
 {
 
-  home.packages = with pkgs; [
-    vscode
-  ];
   programs.vscode.enable = true;
   programs.vscode.package = pkgs.vscode;
-
-  programs.vscode.profiles.default = {
-     
-    extensions = pkgs.nix4vscode.forVscode [
-      # languages
-      "bbenoist.nix" "golang.go" "quillaja.goasm"
-
-      # tools
-      "ms-vscode.makefile-tools" "liuchao.go-struct-tag"
-      "maracko.json-to-go" "esbenp.prettier-vscode"
-      # appearance
-      "be5invis.vscode-icontheme-nomo-dark"
+  programs.vscode.mutableExtensionsDir = false;
+  # may need manually run once command after add a new plugin:
+  # `rm -r ~/.vscode/extension && rebuildnix`
+  # See: https://github.com/nix-community/home-manager/issues/7880
+  programs.vscode.profiles.default.extensions = with inputs.nix-vscode-extensions.extensions."${hostPlatform}".vscode-marketplace; [
+      # vue
+      vue.volar
+    ] ++ [
+      # nix
+      bbenoist.nix
+    ] ++ [
+      # golang
+      golang.go
+      quillaja.goasm
+      liuchao.go-struct-tag
+      maracko.json-to-go
+    ] ++ [
+      # toolchain
+      ms-vscode.makefile-tools
+    ] ++ [
+      # formatter
+      esbenp.prettier-vscode
+    ] ++ [ 
+      # themes
+      be5invis.vscode-icontheme-nomo-dark
     ];
 
+  programs.vscode.profiles.default = {
     userSettings = {
       "extensions.autoCheckUpdates" = false;
       "extensions.autoUpdate" = false;

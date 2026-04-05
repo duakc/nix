@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     
@@ -13,38 +14,32 @@
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     
     mac-app-util.url = "github:hraban/mac-app-util";
-    
-    nix4vscode.url = "github:nix-community/nix4vscode";
-    nix4vscode.inputs.nixpkgs.follows = "nixpkgs";
+
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    nix-vscode-extensions.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs@{ self, 
+  outputs = inputs@{ self,
     nix-darwin, nixpkgs, home-manager, sops-nix, mac-app-util,
-    nix4vscode , ... }:
-  let 
-    pkgs = import nixpkgs {
-      config.allowUnfree = true;
-      system = "aarch64-darwin";
-      overlays = [
-        nix4vscode.overlays.default
-      ];
-    };
-  in 
-  {
-    # Build darwin flake using:
-    # $ darwin-rebuild build --flake .#duakMac
-    darwinConfigurations."duakMac" = nix-darwin.lib.darwinSystem {
-      inherit pkgs;
-      system = "aarch64-darwin";
-      modules = [
-        sops-nix.darwinModules.sops
-        mac-app-util.darwinModules.default
-        ./configure/default.nix
-        ./home-manager/default.nix
-      ];
-      specialArgs = { inherit inputs; };
-    };
+    nix-vscode-extensions , ... }: 
+    let
+      hostName = "duakMac";
+      hostPlatform = "aarch64-darwin";
+    in 
+    {
+      # Build darwin flake using:
+      # $ darwin-rebuild build --flake .#${hostName}
+      darwinConfigurations."${hostName}" = nix-darwin.lib.darwinSystem {
+        system = "${hostPlatform}";
+        modules = [
+          sops-nix.darwinModules.sops
+          mac-app-util.darwinModules.default
+          ./configure/default.nix
+          ./home-manager/default.nix
+        ];
+        specialArgs = { inherit inputs hostName hostPlatform; };
+      };
 
-    packages.aarch64-darwin.default = self.darwinConfigurations."duakMac".system;
-  };
+      packages.aarch64-darwin.default = self.darwinConfigurations."${hostName}".system;
+    };
 }

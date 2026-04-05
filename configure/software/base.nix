@@ -5,10 +5,20 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages =
     with pkgs; [ 
-    vim git jq fastfetch gnupg gawk
-    iperf3 tree age sops gnumake
-    coreutils curl gnutar wget 
-    nexttrace rclone smartmontools
+    vim git git-lfs jq fastfetch tree
+    smartmontools
+  ] ++ [
+    curl wget dig iperf3 nexttrace rclone
+  ] ++ [
+    gnupg gawk gnused gnumake 
+    gnutar openssl openssh 
+    coreutils cmake gcc clang clang-tools 
+  ] ++ [
+    age sops
   ];
+
+  environment.variables = {
+    EDITOR = "vim";
+  };
 }
 

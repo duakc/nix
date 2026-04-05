@@ -1,4 +1,4 @@
-{ pkgs, config, lib, inputs, ... }:
+{ pkgs, config, lib, hostPlatform, hostName, inputs, ... }:
 {
   imports = [
     inputs.home-manager.darwinModules.home-manager
@@ -11,6 +11,7 @@
     ];
     useGlobalPkgs = true;
     useUserPackages = true;
+    extraSpecialArgs = { inherit inputs hostPlatform hostName; };
     users."duak" = import ./users/duak;
   };
 }

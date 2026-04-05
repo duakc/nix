@@ -3,7 +3,6 @@
   imports = [
     ./fonts
     ./etc
-
     ./software
   ];
   
