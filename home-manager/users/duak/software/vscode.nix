@@ -14,17 +14,17 @@
       "bbenoist.nix" "golang.go" "quillaja.goasm"
 
       # tools
-      "ms-vscode.makefile-tools" "liuchao.go-struct-tag" 
-      "maracko.json-to-go"
+      "ms-vscode.makefile-tools" "liuchao.go-struct-tag"
+      "maracko.json-to-go" "esbenp.prettier-vscode"
       # appearance
       "be5invis.vscode-icontheme-nomo-dark"
-
     ];
 
     userSettings = {
       "extensions.autoCheckUpdates" = false;
       "extensions.autoUpdate" = false;
       "update.mode" = "manual";
+      "editor.defaultFormatter" = "esbenp.prettier-vscode";
       "editor.formatOnSave" = true;
       "editor.fontSize" = 17;
       "editor.lineNumbers" = "relative";
@@ -58,6 +58,11 @@
       "[go]" = {
         "editor.insertSpaces" = false;
         "editor.tabSize" = 4;
+      };
+      "[javascript]" = {
+         "editor.defaultFormatter" = "esbenp.prettier-vscode";
+         "editor.insertSpaces" = false;
+         "editor.tabSize" = 2;
       };
     };
   };

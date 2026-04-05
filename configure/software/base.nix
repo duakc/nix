@@ -8,6 +8,7 @@
     vim git jq fastfetch gnupg gawk
     iperf3 tree age sops gnumake
     coreutils curl gnutar wget 
+    nexttrace rclone smartmontools
   ];
 }
 

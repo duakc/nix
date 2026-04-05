@@ -2,7 +2,6 @@
 {
   imports = [
     ./software
-    ./files
     ./sops
   ];
 
