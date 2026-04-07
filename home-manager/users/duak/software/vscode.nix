@@ -20,6 +20,10 @@
       liuchao.go-struct-tag
       maracko.json-to-go
     ] ++ [
+      # python
+      ms-python.python ms-python.debugpy
+      ms-python.vscode-python-envs kevinrose.vsc-python-indent
+    ] ++ [
       # toolchain
       ms-vscode.makefile-tools
     ] ++ [
