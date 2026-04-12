@@ -12,7 +12,7 @@
   ] ++ [
     gnupg gawk gnused gnumake 
     gnutar openssl openssh 
-    coreutils cmake inetutils
+    coreutils cmake 
   ] ++ [
     age sops
   ];

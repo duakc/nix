@@ -13,6 +13,8 @@
   };
 
   programs.bash.initExtra = ''
+    # https://unix.stackexchange.com/questions/685116/case-insensitive-completion-in-bash
+    bind -s 'set completion-ignore-case on'
     source ${pkgs.git}/share/bash-completion/completions/git-prompt.sh;
     
     [[ -f ~/.bash/interactive_functions.sh ]] && . ~/.bash/interactive_functions.sh;

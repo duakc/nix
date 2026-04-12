@@ -25,7 +25,7 @@
       ms-python.vscode-python-envs kevinrose.vsc-python-indent
     ] ++ [
       # toolchain
-      ms-vscode.makefile-tools
+      ms-vscode.makefile-tools docker.docker
     ] ++ [
       # formatter
       esbenp.prettier-vscode
@@ -42,7 +42,7 @@
       "editor.defaultFormatter" = "esbenp.prettier-vscode";
       "editor.formatOnSave" = true;
       "editor.fontSize" = 17;
-      "editor.lineNumbers" = "relative";
+      "editor.lineNumbers" = "on";
       "editor.detectIndentation" = false;
       "editor.tabSize" = 4;
       "files.autoSave" = "off";
