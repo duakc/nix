@@ -10,7 +10,7 @@
     installVimSyntax = true;
     enableBashIntegration = true;
     settings = {
-      font-family = "jetbrains mono";
+      font-family = [ "Jetbrains mono" "Noto Sans Mono" "Source Han Sans SC" ] ;
       font-thicken = false;
       cursor-style = "block";
       mouse-shift-capture = true;

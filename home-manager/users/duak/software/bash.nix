@@ -17,7 +17,7 @@
     bind -s 'set completion-ignore-case on'
     source ${pkgs.git}/share/bash-completion/completions/git-prompt.sh;
     
-    [[ -f ~/.bash/interactive_functions.sh ]] && . ~/.bash/interactive_functions.sh;
+    [[ -f ~/.bash/functions.sh ]] && . ~/.bash/functions.sh;
     [[ -f ~/.bash/extra_completion.sh ]] && . ~/.bash/extra_completion.sh;
     [[ -f ~/.bash/env.sh ]] && . ~/.bash/env.sh;
     [[ -f ~/.bash/prompt.sh ]] && . ~/.bash/prompt.sh;
@@ -26,5 +26,5 @@
   home.file.".bash/prompt.sh".text = builtins.readFile ./bash/prompt.sh;
   home.file.".bash/env.sh".text = builtins.readFile ./bash/env.sh;
   home.file.".bash/extra_completion.sh".text = builtins.readFile ./bash/extra_completion.sh;
-  home.file.".bash/interactive_functions.sh".text = builtins.readFile ./bash/interactive_functions.sh;
+  home.file.".bash/functions.sh".text = builtins.readFile ./bash/functions.sh;
 }
