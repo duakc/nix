@@ -13,7 +13,7 @@
     gnupg gawk gnused gnumake 
     gnutar openssl openssh 
     coreutils moreutils cmake 
-    expect
+    expect qemu
   ] ++ [
     age sops
   ];
