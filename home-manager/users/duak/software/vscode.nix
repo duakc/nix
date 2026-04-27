@@ -9,7 +9,13 @@
   # See: https://github.com/nix-community/home-manager/issues/7880
   programs.vscode.profiles.default.extensions = with inputs.nix-vscode-extensions.extensions."${hostPlatform}".vscode-marketplace; [
       # vue
-      vue.volar
+      vue.volar 
+    ] ++ [ 
+      # docs
+      unifiedjs.vscode-mdx 
+    ] ++ [ 
+      # react
+      skyran.js-jsx-snippets 
     ] ++ [
       # nix
       bbenoist.nix
@@ -48,6 +54,8 @@
       "files.autoSave" = "off";
       "editor.wordWrap" = "wordWrapColumn";
       "workbench.iconTheme" = "vs-nomo-dark";
+      # "workbench.colorTheme" = "Visual Studio Dark";
+      "workbench.colorTheme" = "Dark+";
       "terminal.integrated.defaultProfile.osx" = "bash";
       "terminal.integrated.shellIntegration.enabled" = false;
       "terminal.integrated.enablePersistentSessions" = false;

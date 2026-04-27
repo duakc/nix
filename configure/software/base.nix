@@ -10,10 +10,11 @@
   ] ++ [
     curl wget dig iperf3 nexttrace rclone
   ] ++ [
+    # gun
     gnupg gawk gnused gnumake 
     gnutar openssl openssh 
     coreutils moreutils cmake 
-    expect qemu
+    expect qemu findutils
   ] ++ [
     age sops
   ];
