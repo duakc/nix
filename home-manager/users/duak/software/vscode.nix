@@ -2,9 +2,9 @@
 {
 
   programs.vscode.enable = true;
-  programs.vscode.package = pkgs.vscode;
+  programs.vscode.package = pkgs.vscodium;
   programs.vscode.mutableExtensionsDir = false;
-  # may need manually run once command after add a new plugin:
+  # may need manually run once command after added a new plugin:
   # `rm -r ~/.vscode/extension && rebuildnix`
   # See: https://github.com/nix-community/home-manager/issues/7880
   programs.vscode.profiles.default.extensions = with inputs.nix-vscode-extensions.extensions."${hostPlatform}".vscode-marketplace; [
@@ -31,7 +31,8 @@
       ms-python.vscode-python-envs kevinrose.vsc-python-indent
     ] ++ [
       # toolchain
-      ms-vscode.makefile-tools docker.docker
+      ms-vscode.makefile-tools docker.docker dbaeumer.vscode-eslint
+      ritwickdey.liveserver jock.svg bradlc.vscode-tailwindcss
     ] ++ [
       # formatter
       esbenp.prettier-vscode
@@ -50,7 +51,7 @@
       "editor.fontSize" = 17;
       "editor.lineNumbers" = "on";
       "editor.detectIndentation" = false;
-      "editor.tabSize" = 4;
+      "editor.tabSize" = 2;
       "files.autoSave" = "off";
       "editor.wordWrap" = "wordWrapColumn";
       "workbench.iconTheme" = "vs-nomo-dark";

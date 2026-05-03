@@ -10,6 +10,7 @@
     l="ls";
     grep="grep --color=auto";
     rebuildnix="sudo darwin-rebuild switch --flake ~/.config/nix#duakMac";
+    getaddr="dscacheutil -q host -a name";
   };
 
   programs.bash.initExtra = ''
