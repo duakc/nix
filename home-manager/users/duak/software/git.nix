@@ -6,6 +6,7 @@
   programs.git.settings = {
     user.name = "duakc";
     user.email = "young@qeee.net";
+    init.defaultBranch = "main";
     include.path = ''${ config.sops.templates."git-sig".path }'';
   };
   

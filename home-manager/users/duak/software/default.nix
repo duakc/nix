@@ -10,7 +10,7 @@
 #    ./direnv.nix
   ];
   home.packages = with pkgs; [
-    asdf-vm jetbrains-toolbox google-chrome
+    asdf-vm jetbrains-toolbox google-chrome mpv
   ];
 
 }

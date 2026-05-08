@@ -33,6 +33,7 @@
       # toolchain
       ms-vscode.makefile-tools docker.docker dbaeumer.vscode-eslint
       ritwickdey.liveserver jock.svg bradlc.vscode-tailwindcss
+      redhat.vscode-yaml
     ] ++ [
       # formatter
       esbenp.prettier-vscode
@@ -43,24 +44,33 @@
 
   programs.vscode.profiles.default = {
     userSettings = {
+      "files.autoSave" = "off";
+      "update.mode" = "manual";
+      ## Extension
       "extensions.autoCheckUpdates" = false;
       "extensions.autoUpdate" = false;
-      "update.mode" = "manual";
+      ## Editor
       "editor.defaultFormatter" = "esbenp.prettier-vscode";
       "editor.formatOnSave" = true;
       "editor.fontSize" = 17;
       "editor.lineNumbers" = "on";
       "editor.detectIndentation" = false;
       "editor.tabSize" = 2;
-      "files.autoSave" = "off";
       "editor.wordWrap" = "wordWrapColumn";
+      ## Workbench
       "workbench.iconTheme" = "vs-nomo-dark";
       # "workbench.colorTheme" = "Visual Studio Dark";
       "workbench.colorTheme" = "Dark+";
+      ## Terminal
       "terminal.integrated.defaultProfile.osx" = "bash";
       "terminal.integrated.shellIntegration.enabled" = false;
       "terminal.integrated.enablePersistentSessions" = false;
       "terminal.integrated.inheritEnv" =  false;
+      ## YAML
+      "yaml.validate" = true;
+      "yaml.format.enable" = true;
+      ## plguin
+      "redhat.telemetry.enabled" = false;
       "json.schemaDownload.trustedDomains" = {
         "https://developer.microsoft.com/json-schemas/" = true;
         "https://github.com" = true;
@@ -79,6 +89,11 @@
         "editor.insertSpaces" = true;
         "editor.tabSize" = 2;
       };
+      "[yaml]" = {
+        "editor.defaultFormatter" = "redhat.vscode-yaml";
+        "editor.insertSpaces" = true;
+        "editor.tabSize" = 2;
+      };
       "[go]" = {
         "editor.insertSpaces" = false;
         "editor.tabSize" = 4;
@@ -88,6 +103,7 @@
          "editor.insertSpaces" = false;
          "editor.tabSize" = 2;
       };
+      
     };
   };
 }
