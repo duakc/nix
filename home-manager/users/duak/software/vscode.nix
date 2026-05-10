@@ -1,13 +1,13 @@
 { pkgs, config, lib, hostPlatform, inputs, ... }:
 {
 
-  programs.vscode.enable = true;
-  programs.vscode.package = pkgs.vscodium;
-  programs.vscode.mutableExtensionsDir = false;
+  programs.vscodium.enable = true;
+  programs.vscodium.package = pkgs.vscodium;
+  programs.vscodium.mutableExtensionsDir = false;
   # may need manually run once command after added a new plugin:
   # `rm -r ~/.vscode/extension && rebuildnix`
   # See: https://github.com/nix-community/home-manager/issues/7880
-  programs.vscode.profiles.default.extensions = with inputs.nix-vscode-extensions.extensions."${hostPlatform}".vscode-marketplace; [
+  programs.vscodium.profiles.default.extensions = with inputs.nix-vscode-extensions.extensions."${hostPlatform}".vscode-marketplace; [
       # vue
       vue.volar 
     ] ++ [ 
@@ -42,10 +42,10 @@
       be5invis.vscode-icontheme-nomo-dark
     ];
 
-  programs.vscode.profiles.default = {
+  programs.vscodium.profiles.default = {
     userSettings = {
       "files.autoSave" = "off";
-      "update.mode" = "manual";
+      "update.mode" = "none";
       ## Extension
       "extensions.autoCheckUpdates" = false;
       "extensions.autoUpdate" = false;
