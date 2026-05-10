@@ -1,8 +1,6 @@
 { pkgs, config, lib, inputs , ... }:
 {
-  programs.git.enable = true;
- #  programs.git.prompt.enable = true;
-  
+  programs.git.enable = true;  
   programs.git.settings = {
     user.name = "duakc";
     user.email = "young@qeee.net";
