@@ -1,7 +1,14 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) mkEnableOption mkOption mkIf types genAttrs;
+  inherit (lib) 
+    mkEnableOption
+    mkOption
+    mkAfter
+    mkIf
+    types
+    genAttrs
+    ;
   cfg = config.programs.lima;
   yamlFormat = pkgs.formats.yaml { };
 
@@ -38,14 +45,49 @@ in
       default = "lima";
       example = "pkgs.lima-full";
     };
+    limaHome = mkOption {
+      type = types.str;
+      default = ".lima";
+      description = "a relative path from home to Lima Home, See: https://lima-vm.io/docs/dev/internals/ (without ~ and $HOME before)";
+    };
+    loadSshConfig = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Indicates whether `ssh_config` is managed by Nix to automatically load Lima's `ssh_config`. Requires `programs.ssh.enable == true`";
+    };
+    enableBashIntegration = lib.hm.shell.mkBashIntegrationOption { inherit config; };
+    enableFishIntegration = lib.hm.shell.mkFishIntegrationOption { inherit config; };
+    enableZshIntegration = lib.hm.shell.mkZshIntegrationOption { inherit config; };
+    
   } // options;
 
   config = mkIf cfg.enable {
     home.packages = [ cfg.package ];
     home.file = {
-      ".lima/_config/default.yaml" = files.defaultConfig;
-      ".lima/_config/override.yaml" = files.overrideConfig;
-      ".lima/_config/network.yaml" = files.networkConfig;
+      "${cfg.limaHome}/_config/default.yaml" = files.defaultConfig;
+      "${cfg.limaHome}/_config/override.yaml" = files.overrideConfig;
+      "${cfg.limaHome}/_config/network.yaml" = files.networkConfig;
     };
+
+    programs =  {
+      ssh.includes = mkIf (cfg.loadSshConfig && config.programs.ssh.enable ) [
+        "${config.home.homeDirectory}/${cfg.limaHome}/*/ssh.config"
+      ];
+      bash.initExtra = mkIf cfg.enableBashIntegration (
+        mkAfter ''
+          source <(${cfg.package}/bin/limactl completion bash)
+        ''
+      );
+
+      fish.interactiveShellInit = mkIf cfg.enableFishIntegration (
+        mkAfter ''
+          eval (${cfg.package}/bin/limactl completion fish)
+        ''
+      );
+
+      zsh.initContent = mkIf cfg.enableZshIntegration ''
+        source <(${cfg.package}/bin/limactl completion zsh)
+      '';
+      };
   };
 }

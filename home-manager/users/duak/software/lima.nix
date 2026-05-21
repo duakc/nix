@@ -3,6 +3,9 @@
   programs.lima = {
     enable = true;
     package = pkgs.lima-full;
+    limaHome = ".lima";
+    loadSshConfig = true;
+    enableBashIntegration = true;
     defaultConfig = {
       networks = [
         {

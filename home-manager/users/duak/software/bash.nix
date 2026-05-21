@@ -1,4 +1,16 @@
-{ pkgs, hostName,... }:
+{ pkgs, config, lib, hostName,... }:
+let
+  bashDir = ./bash;
+
+  scriptNames = builtins.sort builtins.lessThan (
+    builtins.filter (name:
+      let type = builtins.readDir bashDir; in
+      type.${name} == "regular" && lib.hasSuffix ".sh" name
+    ) (builtins.attrNames (builtins.readDir bashDir))
+  );
+
+  sourceLines = map (name: "source ${./bash}/${name}") scriptNames;
+in
 {
   home.shell.enableBashIntegration = true;
   home.shell.enableShellIntegration = true;
@@ -14,20 +26,8 @@
   };
 
   programs.bash.initExtra = ''
-    # https://unix.stackexchange.com/questions/685116/case-insensitive-completion-in-bash
-    bind -s 'set completion-ignore-case on'
-    source ${pkgs.git}/share/bash-completion/completions/git-prompt.sh;
+    bind -s 'set completion-ignore-case on';
+    source '${pkgs.git}/share/bash-completion/completions/git-prompt.sh';
     
-    [[ -f ~/.bash/env.sh ]] && . ~/.bash/env.sh;
-    [[ -f ~/.bash/prompt.sh ]] && . ~/.bash/prompt.sh;
-    [[ -f ~/.bash/functions.sh ]] && . ~/.bash/functions.sh;
-    [[ -f ~/.bash/completion_.sh ]] && . ~/.bash/completion_.sh;
-  '';
-
-  home.file.".bash/env.sh".text = builtins.readFile ./bash/env.sh;
-  home.file.".bash/prompt.sh".text = builtins.readFile ./bash/prompt.sh;
-  home.file.".bash/functions.sh".text = builtins.readFile ./bash/functions.sh;
-
-  home.file.".bash/completion_.sh".text = builtins.readFile ./bash/completion_.sh;
-  home.file.".bash/completion_go.sh".text = builtins.readFile ./bash/completion_go.sh;
+  '' + (builtins.concatStringsSep "\n" sourceLines);
 }
