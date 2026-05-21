@@ -65,7 +65,6 @@ in
 
     home.activation.installAsdfPlugins = let
       pluginAddCmds = lib.mapAttrsToList (name: url: ''
-        echo "Configuring asdf-vm"
         if ! ${cfg.package}/bin/asdf plugin list 2>/dev/null | ${pkgs.gnugrep}/bin/grep -Fxq "${name}"; then
           ${cfg.package}/bin/asdf plugin add "${name}" "${url}"
         fi
@@ -81,7 +80,6 @@ in
     home.activation.cleanAsdfVersions = mkIf (cfg.autoClean) (
       let
         cleanCmds = lib.mapAttrsToList (plugin: version: ''
-          echo "Cleaning asdf-vm unused ${plugin} versions (keeping ${version})"
           for ver in $(${cfg.package}/bin/asdf list "${plugin}" 2>/dev/null | ${pkgs.gnused}/bin/sed 's/^[* ]*//;s/ .*//'); do
             if [[ "$ver" != "${version}" ]]; then
               ${cfg.package}/bin/asdf uninstall "${plugin}" "$ver"
