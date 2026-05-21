@@ -48,7 +48,7 @@ in
     limaHome = mkOption {
       type = types.str;
       default = ".lima";
-      description = "a relative path from home to Lima Home, See: https://lima-vm.io/docs/dev/internals/ (without ~ and $HOME before)";
+      description = "A relative path from home to Lima Home, See: https://lima-vm.io/docs/dev/internals/ (without ~ and $HOME before)";
     };
     loadSshConfig = mkOption {
       type = types.bool;
@@ -85,9 +85,11 @@ in
         ''
       );
 
-      zsh.initContent = mkIf cfg.enableZshIntegration ''
+      zsh.initContent = mkIf cfg.enableZshIntegration (
+        mkAfter ''
         source <(${cfg.package}/bin/limactl completion zsh)
-      '';
-      };
+        ''
+      );
+    };
   };
 }

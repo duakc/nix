@@ -11,9 +11,10 @@
     ./claude.nix
     ./lima.nix
     ./ssh.nix
+    ./asdf.nix
   ];
   home.packages = with pkgs; [
-    asdf-vm jetbrains-toolbox mpv nheko cinny-desktop
+    jetbrains-toolbox mpv
   ];
 
 }
