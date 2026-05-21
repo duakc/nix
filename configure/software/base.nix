@@ -15,6 +15,8 @@
     expect qemu findutils
   ] ++ [
     age sops
+  ] ++ [
+    lima-full
   ];
 
   environment.variables = {

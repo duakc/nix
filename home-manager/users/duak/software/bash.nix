@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, hostName,... }:
 {
   home.shell.enableBashIntegration = true;
   home.shell.enableShellIntegration = true;
@@ -9,7 +9,7 @@
     ll="ls -al";
     l="ls";
     grep="grep --color=auto";
-    rebuildnix="sudo darwin-rebuild switch --flake ~/.config/nix#duakMac";
+    rebuildnix="sudo darwin-rebuild switch --flake ~/.config/nix#${hostName}";
     getaddr="dscacheutil -q host -a name";
   };
 

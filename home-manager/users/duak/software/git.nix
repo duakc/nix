@@ -2,6 +2,9 @@
 {
   programs.git.enable = true;  
   programs.git.settings = {
+    # because the macos default filesystem is case insensitive,
+    # so`git` should ignore the cases by default.
+    # core.ignoreCase = true;
     user.name = "duakc";
     user.email = "young@qeee.net";
     init.defaultBranch = "main";

@@ -1,8 +1,10 @@
-{ pkgs, config, lib, inputs,... }:
+{ pkgs, config, lib, inputs, primaryUser,... }:
 let
   nix-homebrew-manage = import ./nix-homebrew.nix {
     inherit (inputs) homebrew-core homebrew-cask;
+    inherit primaryUser;
   };
+  allowUpdate = false;
 in
 {
   inherit (nix-homebrew-manage) nix-homebrew;
@@ -14,9 +16,18 @@ in
       appdir = "/Applications";
       require_sha = true;
     };
+    onActivation = {
+      # Set below option to true to update the brews and casks.
+      autoUpdate = allowUpdate;
+      upgrade = allowUpdate;
+      cleanup = "uninstall";
+    };
 
-    brews = [];
+    brews = [
+      { name="socket_vmnet"; restart_service="changed"; start_service=true; }
+    ];
     casks = [
+      "1password"
       "ungoogled-chromium"
     ];
   };

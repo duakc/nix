@@ -1,4 +1,4 @@
-{ homebrew-core, homebrew-cask }:
+{ homebrew-core, homebrew-cask, primaryUser }:
 {
   nix-homebrew = {
     enable = true;
@@ -7,7 +7,8 @@
     enableRosetta = true;
 
     # User owning the Homebrew prefix
-    user = "duak";
+    user = "${primaryUser}";
+    autoMigrate = true;
 
     # Optional: Declarative tap management
     taps = {

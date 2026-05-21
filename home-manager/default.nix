@@ -1,4 +1,4 @@
-{ pkgs, config, lib, hostPlatform, hostName, inputs, ... }:
+{ pkgs, config, lib, hostPlatform, hostName, primaryUser, inputs, ... }:
 {
   imports = [
     inputs.home-manager.darwinModules.home-manager
@@ -8,10 +8,22 @@
     sharedModules = [
       inputs.sops-nix.homeManagerModules.sops
       inputs.mac-app-util.homeManagerModules.default
+      ./modules
     ];
+    extraSpecialArgs = { inherit 
+      inputs 
+      hostPlatform 
+      hostName 
+      primaryUser
+      ; 
+    };
+
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = { inherit inputs hostPlatform hostName; };
-    users."duak" = import ./users/duak;
+    backupFileExtension = "before-home-manager";
+
+    users = {
+      "${primaryUser}" = import ./users/${primaryUser};
+    };
   };
 }

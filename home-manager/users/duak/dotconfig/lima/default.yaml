@@ -1,0 +1,10 @@
+networks:
+  - vzNAT: true
+
+portForwards:
+  - ignore: true
+    proto: any
+    guestIP: 0.0.0.0
+
+ssh:
+  loadDotSSHPubKeys: true

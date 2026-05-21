@@ -8,9 +8,11 @@
     ./qq.nix
     ./bash.nix
     ./direnv.nix
+    ./claude.nix
+    ./lima.nix
   ];
   home.packages = with pkgs; [
-    asdf-vm jetbrains-toolbox google-chrome mpv
+    asdf-vm jetbrains-toolbox mpv nheko cinny-desktop
   ];
 
 }

@@ -1,9 +1,10 @@
-{ pkgs, config ,lib, inputs, primaryUser,hostPlatform,... }:
+{ pkgs, config ,lib, inputs, primaryUser, hostPlatform,... }:
 {
   imports = [
     ./fonts
     ./etc
     ./software
+    ./networking
   ];
 
   system.configurationRevision = with inputs; self.rev or self.dirtyRev or null;
@@ -14,5 +15,5 @@
   nixpkgs.hostPlatform = "${hostPlatform}";
 
   nix.settings.experimental-features = "nix-command flakes";
-  users.users."duak" = import ./users/duak.nix { inherit pkgs config lib inputs; };
+  users.users."${primaryUser}" = import ./users/${primaryUser}.nix { inherit pkgs config lib inputs; };
 }
