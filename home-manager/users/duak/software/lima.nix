@@ -9,7 +9,7 @@
     defaultConfig = {
       networks = [
         {
-          vzNat = true;
+          vzNAT = true;
         }
       ];
       portForwards = [
