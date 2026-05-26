@@ -1,13 +1,21 @@
 { pkgs, config, lib, hostPlatform, inputs, ... }:
+let
+  pkgs-vscode-overlay = import inputs.nixpkgs {
+    inherit (pkgs) system;
+    config.allowUnfree = true;
+    overlays = [ inputs.nix-vscode-extensions.overlays.default ];
+  };
+  marketplace = pkgs-vscode-overlay.vscode-marketplace;
+in
 {
-
   programs.vscodium.enable = true;
   programs.vscodium.package = pkgs.vscodium;
   programs.vscodium.mutableExtensionsDir = false;
   # may need manually run once command after added a new plugin:
   # `rm -r ~/.vscode/extension && rebuildnix`
   # See: https://github.com/nix-community/home-manager/issues/7880
-  programs.vscodium.profiles.default.extensions = with inputs.nix-vscode-extensions.extensions."${hostPlatform}".vscode-marketplace; [
+  # programs.vscodium.profiles.default.extensions = with inputs.nix-vscode-extensions.extensions."${hostPlatform}".vscode-marketplace; [
+  programs.vscodium.profiles.default.extensions = with marketplace; [
       # vue
       vue.volar 
     ] ++ [ 
@@ -42,8 +50,11 @@
     ] ++ [ 
       # themes
       be5invis.vscode-icontheme-nomo-dark
+    ] ++ [
+      # agents
+      anthropic.claude-code
     ];
-
+  
   programs.vscodium.profiles.default = {
     userSettings = {
       "files.autoSave" = "off";
@@ -62,7 +73,7 @@
       ## Workbench
       "workbench.iconTheme" = "vs-nomo-dark";
       # "workbench.colorTheme" = "Visual Studio Dark";
-      "workbench.colorTheme" = "Dark+";
+      "workbench.colorTheme" = "Default Dark+";
       ## Terminal
       "terminal.integrated.defaultProfile.osx" = "bash";
       "terminal.integrated.shellIntegration.enabled" = false;
@@ -121,5 +132,18 @@
       "docker.extension.editor.dockerfileBuildStageDecorationLines" = true;
       "docker.lsp.telemetry" = "off";
     };
+  };
+  home.file."Library/Application Support/VSCodium/product.json" = {
+    enable = true;
+    # enbale vscode marketplace
+    # https://gist.github.com/anxkhn/9ae7b2248999168b73f303dec5851460
+    text = (builtins.toJSON { 
+      extensionsGallery = {
+        serviceUrl = "https://marketplace.visualstudio.com/_apis/public/gallery";
+        itemUrl = "https://marketplace.visualstudio.com/items";
+        cacheUrl = "https://vscode.blob.core.windows.net/gallery/index";
+        controlUrl = "";
+      };
+    });
   };
 }

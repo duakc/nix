@@ -5,6 +5,9 @@ let
     .idea/
     .claude/
     .vscode/
+    
+    .env
+    CLAUDE.md
   '';
 in
 {

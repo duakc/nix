@@ -25,9 +25,14 @@ in
     getaddr="dscacheutil -q host -a name";
   };
 
-  programs.bash.initExtra = ''
+  programs.bash.initExtra = builtins.concatStringsSep "\n" [ ''
     bind -s 'set completion-ignore-case on';
     source '${pkgs.git}/share/bash-completion/completions/git-prompt.sh';
     
-  '' + (builtins.concatStringsSep "\n" sourceLines);
+  '' 
+    (builtins.concatStringsSep "\n" sourceLines)  
+  ''
+    # fix the ghostty cursor style not working;
+    [[ "$TERM_PROGRAM" == "ghostty" ]] && export TERM=xterm-256color;
+  '' ];
 }
