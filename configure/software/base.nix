@@ -6,7 +6,7 @@
     vim git git-lfs jq fastfetch tree
     smartmontools
   ] ++ [
-    curl wget dig iperf3 nexttrace rclone
+    wget dig iperf3 nexttrace rclone
   ] ++ [
     # gun
     gnupg gawk gnused gnumake 
@@ -17,6 +17,17 @@
     age sops
   ] ++ [
     lima-full
+  ] ++ [
+    # curl
+    (pkgs.curl.override {
+      c-aresSupport = true;
+      brotliSupport = true;
+      http2Support = true;
+      http3Support = true;
+      idnSupport = true;
+      zlibSupport = true;
+      zstdSupport = true;
+    })
   ];
 
   environment.variables = {

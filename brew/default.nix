@@ -24,7 +24,6 @@ in
     };
 
     brews = [
-      { name="socket_vmnet"; restart_service="changed"; start_service=true; }
     ];
     casks = [
       "1password"

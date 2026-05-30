@@ -1,7 +1,7 @@
 { pkgs, config, lib, hostPlatform, inputs, ... }:
 let
   pkgs-vscode-overlay = import inputs.nixpkgs {
-    inherit (pkgs) system;
+    localSystem = pkgs.stdenv.hostPlatform.system;
     config.allowUnfree = true;
     overlays = [ inputs.nix-vscode-extensions.overlays.default ];
   };
