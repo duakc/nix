@@ -12,9 +12,11 @@
     ./lima.nix
     ./ssh.nix
     ./asdf.nix
+    ./aria2c.nix
+    ./fcitx5.nix
   ];
   home.packages = with pkgs; [
-    jetbrains-toolbox mpv
+    jetbrains-toolbox mpv 
   ];
 
 }

@@ -16,7 +16,7 @@
   ] ++ [
     age sops
   ] ++ [
-    lima-full
+    lima-full apacheHttpd ffmpeg
   ] ++ [
     # curl
     (pkgs.curl.override {

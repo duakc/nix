@@ -73,7 +73,7 @@ in
       ## Workbench
       "workbench.iconTheme" = "vs-nomo-dark";
       # "workbench.colorTheme" = "Visual Studio Dark";
-      "workbench.colorTheme" = "Default Dark+";
+      "workbench.colorTheme" = "Dark+";
       ## Terminal
       "terminal.integrated.defaultProfile.osx" = "bash";
       "terminal.integrated.shellIntegration.enabled" = false;
@@ -131,6 +131,8 @@ in
       "docker.extension.enableComposeLanguageServer" = true;
       "docker.extension.editor.dockerfileBuildStageDecorationLines" = true;
       "docker.lsp.telemetry" = "off";
+
+      "claudeCode.preferredLocation" = "panel";
     };
   };
   home.file."Library/Application Support/VSCodium/product.json" = {

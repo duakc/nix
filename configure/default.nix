@@ -15,10 +15,14 @@
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.hostPlatform = "${hostPlatform}";
+  
+  # since we starting use Determinate Nix,
+  # disable this to prevent the upstream nix daemon start
+  nix.enable = false;
 
   nix.settings = {
+    #"https://mirror.sjtu.edu.cn/nix-channels/store"
     substituters = [
-      "https://mirror.sjtu.edu.cn/nix-channels/store"
       "https://cache.nixos.org"
     ];
     experimental-features = "nix-command flakes";

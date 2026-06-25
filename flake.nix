@@ -13,7 +13,10 @@
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     
-    mac-app-util.url = "github:hraban/mac-app-util";
+    # Shell rewrite of hraban/mac-app-util — avoids the SBCL fixed-address
+    # allocation bug on arm64 macOS 27 (SBCL #2085706).
+    mac-app-util.url = "github:XYenon/mac-app-util";
+    mac-app-util.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     nix-vscode-extensions.inputs.nixpkgs.follows = "nixpkgs";
@@ -23,11 +26,17 @@
     homebrew-core.flake = false;
     homebrew-cask.url = "github:homebrew/homebrew-cask";
     homebrew-cask.flake = false;
+  
+    homebrew-tap-tinypkg.url = "github:tinypkg/homebrew-tap";
+    homebrew-tap-tinypkg.flake = false;
   };
 
   outputs = inputs@{ self,
     nix-darwin, nixpkgs, home-manager, sops-nix, mac-app-util,
-    nix-vscode-extensions ,nix-homebrew, homebrew-core, homebrew-cask, ... }: 
+    nix-vscode-extensions ,
+    # home brews
+    nix-homebrew, homebrew-core, homebrew-cask, homebrew-tap-tinypkg, ... }: 
+   
     let
       hostName = "duakMac";
       hostPlatform = "aarch64-darwin";

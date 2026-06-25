@@ -5,9 +5,7 @@
     ./zsh.nix
     ./bash.nix
     ./ssh.nix
+    ./fcitx5.nix
   ];
 
-  nixpkgs.config.permittedInsecurePackages = [
-    "olm-3.2.16"
-  ];
 }
