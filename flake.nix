@@ -26,16 +26,23 @@
     homebrew-core.flake = false;
     homebrew-cask.url = "github:homebrew/homebrew-cask";
     homebrew-cask.flake = false;
-  
+
     homebrew-tap-tinypkg.url = "github:tinypkg/homebrew-tap";
-    homebrew-tap-tinypkg.flake = false;
+    homebrew-tap-tinypkg.flake = false; 
+    # https://github.com/zhaofengli/nix-homebrew/issues/115
+    homebrew-tap-duongductrong-snapzy.url = "git+https://github.com/duongductrong/Snapzy.git";
+    homebrew-tap-duongductrong-snapzy.flake = false;
+    homebrew-tap-jorgelbg.url = "github:jorgelbg/homebrew-tap";
+    homebrew-tap-jorgelbg.flake = false;
   };
 
   outputs = inputs@{ self,
     nix-darwin, nixpkgs, home-manager, sops-nix, mac-app-util,
     nix-vscode-extensions ,
     # home brews
-    nix-homebrew, homebrew-core, homebrew-cask, homebrew-tap-tinypkg, ... }: 
+    nix-homebrew, homebrew-core, homebrew-cask, 
+    homebrew-tap-tinypkg, homebrew-tap-duongductrong-snapzy, 
+    homebrew-tap-jorgelbg, ... }: 
    
     let
       hostName = "duakMac";

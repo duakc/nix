@@ -14,9 +14,10 @@
     ./asdf.nix
     ./aria2c.nix
     ./fcitx5.nix
+    ./gnupg.nix
   ];
   home.packages = with pkgs; [
-    jetbrains-toolbox mpv 
+    jetbrains-toolbox mpv moonlight-qt google-chrome
   ];
 
 }

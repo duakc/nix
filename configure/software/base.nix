@@ -4,7 +4,7 @@
   environment.systemPackages =
     with pkgs; [ 
     vim git git-lfs jq fastfetch tree
-    smartmontools
+    smartmontools zstd
   ] ++ [
     wget dig iperf3 nexttrace rclone
   ] ++ [

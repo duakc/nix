@@ -1,5 +1,11 @@
-{ primaryUser,inputs }:
+{ primaryUser, inputs, config, lib, ... }:
 {
+  imports = [
+    ./taps/tinypkg.nix
+    ./taps/snapzy.nix
+    ./taps/jorgelbg.nix
+  ];
+
   nix-homebrew = {
     enable = true;
 
@@ -10,12 +16,20 @@
     # User owning the Homebrew prefix
     user = "${primaryUser}";
     autoMigrate = true;
+  
+    # `brew trust` only accepts non-official, fully-qualified tap entries
+    # (owner/repo/name). Feeding it bare official casks (e.g. "macdown")
+    # makes the activation `brew trust` call fail. nix-darwin also coerces
+    # each cask/brew into an attrset, so pull out `.name` and keep only the
+    # tap-qualified entries (those containing a "/").
+    #trust = {
+    #  casks = builtins.filter (lib.hasInfix "/") (map (c: c.name) config.homebrew.casks);
+    #  formulae = builtins.filter (lib.hasInfix "/") (map (f: f.name) config.homebrew.brews);
+    #};
 
     taps = {
       "homebrew/homebrew-core" = inputs.homebrew-core;
       "homebrew/homebrew-cask" = inputs.homebrew-cask;
-
-      "tinypkg/homebrew-tap" = inputs.homebrew-tap-tinypkg;
     };
 
     # Optional: Enable fully-declarative tap management

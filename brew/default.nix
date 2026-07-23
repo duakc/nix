@@ -1,14 +1,11 @@
 { pkgs, config, lib, inputs, primaryUser,... }:
 let
-  nix-homebrew-manage = import ./nix-homebrew.nix {
-    inherit primaryUser inputs;
-  };
-
-  allowUpdate = false;
+  allowUpdate = true;
 in
 {
-  inherit (nix-homebrew-manage) nix-homebrew;
-
+  imports = [
+    ./nix-homebrew.nix
+  ];
   homebrew = {
     enable = true;
     taps = builtins.attrNames config.nix-homebrew.taps;
@@ -30,6 +27,7 @@ in
     casks = [
       "macdown"
       "1password"
+      "telegram"
       "ungoogled-chromium"
     ];
   };

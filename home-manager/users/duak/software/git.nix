@@ -16,7 +16,7 @@ in
     # because the macos default filesystem is case insensitive,
     # so`git` should ignore the cases by default.
     core.ignoreCase = false;
-    user.name = "duakc";
+    user.name = "young";
     user.email = "young@qeee.net";
     init.defaultBranch = "main";
     include.path = ''${ config.sops.templates."git-sig".path }'';
